@@ -71,6 +71,10 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Our Menu</h2>
+      <p>
+        Authentic Italian cuisine. 6 creative to choose from. All from our stone
+        oven, all organic, all delicious
+      </p>
       <ul className="pizzas">
         {pizzas.map((pizza) => (
           <Pizza pizzaObj={pizza} key={pizza.name} />
@@ -84,13 +88,13 @@ function Pizza(props) {
   console.log(props);
   const pizza = props.pizzaObj;
   return (
-    <li className="pizza">
+    <li className={`pizza ${pizza.soldOut ? "sold-out" : ""}`}>
       {/* <div key={pizza.id} className="pizza-item"> */}
       <img src={pizza.photoName} alt={pizza.name} />
       <div>
         <h3>{pizza.name}</h3>
         <p>{pizza.ingredients}</p>
-        <span>{pizza.price}</span>
+        <span>{pizza.soldOut ? "SOLD OUT" : pizza.price}</span>
       </div>
       {/* </div> */}
     </li>
