@@ -66,43 +66,34 @@ function Header() {
 }
 
 function Menu() {
+  const pizzas = pizzaData;
+  // const numPizzas = pizzas.length();
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-
-      {/* <Pizza
-        name="Pizza Spinaci"
-        ingredients="tomato,salt, pepper"
-        photoName="pizzas/spinaci.jpg"
-        price={10}
-      />
-      <Pizza
-        name="Pizza Spinaci"
-        ingredients="tomato,salt, pepper"
-        photoName="pizzas/spinaci.jpg"
-        price={10}
-      /> */}
-
-      <Pizza pizzas={pizzaData} />
+      <ul className="pizzas">
+        {pizzas.map((pizza) => (
+          <Pizza pizzaObj={pizza} key={pizza.name} />
+        ))}
+      </ul>
     </main>
   );
 }
 
 function Pizza(props) {
   console.log(props);
+  const pizza = props.pizzaObj;
   return (
-    <div className="pizza">
-      {props.pizzas.map((pizza) => (
-        <div key={pizza.id} className="pizza-item">
-          <img src={pizza.photoName} alt={pizza.name} />
-          <div>
-            <h3>{pizza.name}</h3>
-            <p>{pizza.ingredients}</p>
-            <span>{pizza.price}</span>
-          </div>
-        </div>
-      ))}
-    </div>
+    <li className="pizza">
+      {/* <div key={pizza.id} className="pizza-item"> */}
+      <img src={pizza.photoName} alt={pizza.name} />
+      <div>
+        <h3>{pizza.name}</h3>
+        <p>{pizza.ingredients}</p>
+        <span>{pizza.price}</span>
+      </div>
+      {/* </div> */}
+    </li>
   );
 }
 
@@ -114,8 +105,24 @@ function Footer() {
 
   return (
     <footer className="footer">
-      {new Date().toLocaleTimeString()} We're currently open
+      {/* {new Date().toLocaleTimeString()} We're currently open */}
+      {!isOpen ? (
+        <Order closeHour={closeHour} />
+      ) : (
+        <p>Were hapy to search you between {openHour}</p>
+      )}
     </footer>
+  );
+}
+
+function Order(props) {
+  return (
+    <div className="order">
+      <p>
+        We're open until {props.closeHour}:00. Come visit us or order online
+      </p>
+      <button className="btn">Order</button>
+    </div>
   );
 }
 
